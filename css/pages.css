@@ -434,13 +434,16 @@
   border-top: 1px solid rgba(58, 58, 58, 0.08);
 }
 
-.contact-ar {
-  font-family: var(--font-arabic);
+.contact-note {
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(58, 58, 58, 0.08);
+  border-top: 1px solid rgba(39, 73, 109, 0.1);
   font-size: 0.95rem;
-  color: var(--charcoal-soft);
+  color: var(--text-muted);
+}
+
+html[dir="rtl"] .contact-note {
+  font-family: var(--font-arabic), var(--font-body), sans-serif;
 }
 
 .collection-grid {

@@ -1,0 +1,630 @@
+/* The Glow Gallery — First-person corridor walkthrough */
+
+:root {
+  --wall-offset: clamp(140px, 22vw, 280px);
+  --frame-w: clamp(100px, 14vw, 168px);
+  --frame-h: calc(var(--frame-w) * 1.3);
+  --corridor-perspective: clamp(700px, 90vw, 1100px);
+  --corridor-max-depth: 2500;
+}
+
+/* ——— Scroll track ——— */
+.corridor-experience {
+  position: relative;
+  z-index: 2;
+}
+
+.corridor-experience.is-hidden {
+  display: none;
+}
+
+.corridor-experience.is-exiting {
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.corridor-scroll-track {
+  position: relative;
+  height: calc(100vh + var(--corridor-max-depth) * 2.4px);
+}
+
+.corridor-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* ——— HUD ——— */
+.corridor-hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  pointer-events: none;
+}
+
+.corridor-hud > * {
+  pointer-events: auto;
+}
+
+.corridor-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.corridor-hud-right {
+  text-align: right;
+  max-width: 200px;
+}
+
+.walk-hint {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.85;
+  transition: opacity 0.4s;
+}
+
+body.corridor-end .walk-hint {
+  opacity: 0;
+}
+
+.walk-hint-icon {
+  animation: hintBounce 2s ease-in-out infinite;
+  font-size: 0.85rem;
+  color: var(--olive-accent);
+}
+
+@keyframes hintBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+.walk-progress {
+  width: 100px;
+  height: 2px;
+  background: rgba(110, 123, 99, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-left: auto;
+}
+
+.walk-progress-bar {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--sage), var(--olive-accent));
+  border-radius: 2px;
+  transition: width 0.08s linear;
+}
+
+/* ——— Viewport & scene ——— */
+.corridor-viewport {
+  position: absolute;
+  inset: 0;
+  perspective: var(--corridor-perspective);
+  perspective-origin: 50% 48%;
+  background: linear-gradient(180deg, #2a2824 0%, #1e1c19 40%, #151412 100%);
+  overflow: hidden;
+}
+
+.corridor-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 60% at 50% 45%, transparent 20%, rgba(20, 18, 16, 0.55) 100%);
+}
+
+.corridor-fog {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.corridor-fog--far {
+  background: linear-gradient(180deg, transparent 30%, rgba(248, 245, 240, 0.04) 70%, rgba(216, 198, 178, 0.08) 100%);
+}
+
+.corridor-fog--near {
+  background: linear-gradient(0deg, rgba(30, 28, 25, 0.5) 0%, transparent 35%);
+}
+
+.corridor-scene {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.12s ease-out;
+}
+
+/* ——— Environment (subtle parallax via JS) ——— */
+.corridor-env {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.corridor-ceiling {
+  position: absolute;
+  top: 0;
+  left: -20%;
+  right: -20%;
+  height: 42%;
+  background: linear-gradient(180deg, #3d3a36 0%, #4a4640 40%, #5c574f 100%);
+  transform-origin: center bottom;
+  transform: rotateX(12deg) translateZ(-80px);
+  overflow: hidden;
+}
+
+.ceiling-lights {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding-bottom: 15%;
+  opacity: 0.9;
+}
+
+.ceiling-light {
+  width: 12%;
+  max-width: 80px;
+  height: 8px;
+  background: radial-gradient(ellipse at center, rgba(255, 248, 235, 0.95) 0%, rgba(255, 235, 200, 0.4) 40%, transparent 70%);
+  border-radius: 50%;
+  box-shadow: 0 40px 80px rgba(255, 230, 190, 0.25);
+}
+
+.corridor-floor {
+  position: absolute;
+  bottom: 0;
+  left: -30%;
+  right: -30%;
+  height: 38%;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(110, 123, 99, 0.08) 20%),
+    linear-gradient(180deg, #8a7f72 0%, #6e675c 30%, #524c44 100%);
+  transform-origin: center top;
+  transform: rotateX(-68deg) translateZ(20px);
+  box-shadow: inset 0 2px 40px rgba(255, 255, 255, 0.06);
+}
+
+.corridor-floor::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 80px,
+    rgba(0, 0, 0, 0.04) 80px,
+    rgba(0, 0, 0, 0.04) 82px
+  );
+  transform: perspective(200px) rotateX(60deg);
+  opacity: 0.5;
+}
+
+.corridor-wall {
+  position: absolute;
+  top: 8%;
+  bottom: 12%;
+  width: 55%;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.12) 0%, transparent 15%),
+    linear-gradient(180deg, #e7ddd1 0%, #d8c6b2 45%, #c9b8a4 100%);
+  box-shadow: inset 0 0 60px rgba(255, 255, 255, 0.15);
+}
+
+.corridor-wall--left {
+  left: 0;
+  transform-origin: right center;
+  transform: rotateY(42deg) translateZ(-40px);
+  border-right: 1px solid rgba(110, 123, 99, 0.15);
+}
+
+.corridor-wall--right {
+  right: 0;
+  transform-origin: left center;
+  transform: rotateY(-42deg) translateZ(-40px);
+  border-left: 1px solid rgba(110, 123, 99, 0.15);
+}
+
+.corridor-wall::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.7;
+}
+
+.corridor-baseboards {
+  position: absolute;
+  bottom: 12%;
+  width: 50%;
+  height: 12px;
+  background: linear-gradient(180deg, #b7a293, #9a8878);
+  transform: translateZ(2px);
+}
+
+.corridor-baseboards--left {
+  left: 2%;
+  transform: rotateY(42deg) translateZ(8px);
+  width: 48%;
+}
+
+.corridor-baseboards--right {
+  right: 2%;
+  transform: rotateY(-42deg) translateZ(8px);
+  width: 48%;
+}
+
+/* ——— Moving world ——— */
+.corridor-world {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translate3d(-50%, -50%, 0);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.corridor-depth {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 120vw;
+  height: 60vh;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.corridor-depth--far {
+  background: radial-gradient(ellipse at 50% 50%, rgba(248, 245, 240, 0.12) 0%, transparent 55%);
+  transform: translate(-50%, -50%) translateZ(-1800px);
+}
+
+.corridor-depth--mid {
+  background: linear-gradient(180deg, transparent, rgba(169, 181, 156, 0.06));
+  transform: translate(-50%, -50%) translateZ(-900px);
+}
+
+/* ——— Frames ——— */
+.corridor-frames {
+  transform-style: preserve-3d;
+}
+
+.corridor-frame {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: var(--frame-w);
+  height: var(--frame-h);
+  margin-left: calc(var(--frame-w) / -2);
+  margin-top: calc(var(--frame-h) / -2);
+  transform-style: preserve-3d;
+  text-decoration: none;
+  color: inherit;
+  transition: filter 0.35s var(--ease-out-expo);
+  z-index: 15;
+  pointer-events: auto;
+}
+
+.corridor-frame--nav {
+  z-index: 20;
+  cursor: pointer;
+}
+
+.corridor-frame--left {
+  transform: translate3d(calc(-1 * var(--wall-offset)), 0, calc(-1px * var(--frame-z, var(--fz, 0)))) rotateY(24deg);
+}
+
+.corridor-frame--right {
+  transform: translate3d(var(--wall-offset), 0, calc(-1px * var(--frame-z, var(--fz, 0)))) rotateY(-24deg);
+}
+
+.corridor-frame--nav[data-depth] {
+  --frame-z: attr(data-depth number);
+}
+
+/* Set depth via inline style from data-depth in JS fallback; CSS custom properties from JS */
+.corridor-frame--nav[data-depth="550"] { --frame-z: 550; }
+.corridor-frame--nav[data-depth="950"] { --frame-z: 950; }
+.corridor-frame--nav[data-depth="1350"] { --frame-z: 1350; }
+.corridor-frame--nav[data-depth="1750"] { --frame-z: 1750; }
+.corridor-frame--nav[data-depth="2150"] { --frame-z: 2150; }
+
+.frame-shadow {
+  position: absolute;
+  bottom: -12%;
+  left: 8%;
+  right: 8%;
+  height: 20%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.35) 0%, transparent 70%);
+  transform: translateZ(-4px) rotateX(80deg);
+  pointer-events: none;
+}
+
+.frame-piece {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  background: linear-gradient(145deg, #c4b0a0 0%, #9a8878 50%, #7d6e60 100%);
+  border-radius: 2px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transform: translateZ(6px);
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s;
+}
+
+.frame-piece img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 1px;
+}
+
+.frame-gleam {
+  position: absolute;
+  inset: 5%;
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    transparent 35%,
+    transparent 65%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  pointer-events: none;
+}
+
+.frame-plate {
+  position: absolute;
+  bottom: -1.75rem;
+  left: 50%;
+  transform: translateX(-50%) translateZ(12px);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--warm-ivory);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s, transform 0.3s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.corridor-frame--nav:hover .frame-piece,
+.corridor-frame--nav:focus-visible .frame-piece {
+  transform: translateZ(18px) scale(1.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.corridor-frame--nav:hover .frame-plate,
+.corridor-frame--nav:focus-visible .frame-plate {
+  opacity: 1;
+  transform: translateX(-50%) translateZ(16px) translateY(-4px);
+}
+
+.corridor-frame--nav:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 8px;
+}
+
+.corridor-frame--nav.is-near .frame-piece {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 12px 32px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(255, 235, 200, 0.15);
+}
+
+.corridor-frame--deco {
+  opacity: 0.92;
+  pointer-events: none;
+}
+
+/* Corridor end */
+.corridor-end {
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  transform: translate(-50%, 0) translateZ(-2450px);
+  text-align: center;
+  width: min(90vw, 400px);
+  pointer-events: none;
+}
+
+.corridor-end-text {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.5);
+  margin-bottom: 1rem;
+}
+
+.corridor-end-back {
+  pointer-events: auto;
+  padding: 0.65rem 1.25rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--warm-ivory);
+  background: rgba(248, 245, 240, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(248, 245, 240, 0.2);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.corridor-end-back:hover {
+  background: rgba(248, 245, 240, 0.18);
+  transform: translateY(-2px);
+}
+
+/* Entrance sync */
+body.is-entering .corridor-viewport {
+  opacity: 0;
+  transform: scale(1.08);
+}
+
+body.entrance-done .corridor-viewport {
+  animation: corridorReveal 1.6s var(--ease-out-expo) both;
+}
+
+@keyframes corridorReveal {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Reduced motion: static corridor view */
+.corridor-frame.is-static {
+  position: relative;
+  left: auto;
+  top: auto;
+  margin: 1rem auto;
+  transform: none !important;
+  display: block;
+}
+
+.corridor-frames.is-static-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 1rem 2rem;
+  gap: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corridor-scroll-track {
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .corridor-sticky {
+    position: relative;
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .corridor-viewport {
+    position: relative;
+    min-height: 100dvh;
+    perspective: none;
+  }
+
+  .corridor-world {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    transform: none !important;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 6rem 1rem 3rem;
+  }
+
+  .corridor-frame {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin: 0 auto;
+    transform: none !important;
+  }
+
+  .corridor-env,
+  .corridor-depth,
+  .corridor-end,
+  .corridor-fog--far {
+    display: none;
+  }
+
+  .walk-hint {
+    display: none;
+  }
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  :root {
+    --wall-offset: clamp(100px, 18vw, 180px);
+    --frame-w: clamp(88px, 18vw, 130px);
+  }
+
+  .corridor-wall--left {
+    transform: rotateY(38deg) translateZ(-30px);
+  }
+
+  .corridor-wall--right {
+    transform: rotateY(-38deg) translateZ(-30px);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  :root {
+    --wall-offset: clamp(72px, 24vw, 110px);
+    --frame-w: clamp(76px, 28vw, 110px);
+    --corridor-perspective: 600px;
+  }
+
+  .corridor-hud {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .corridor-hud-right {
+    text-align: left;
+    max-width: none;
+    width: 100%;
+  }
+
+  .walk-progress {
+    margin-left: 0;
+  }
+
+  .corridor-frame--left {
+    transform: translate3d(calc(-1 * var(--wall-offset)), 0, calc(-1px * var(--frame-z, var(--fz, 0)))) rotateY(18deg);
+  }
+
+  .corridor-frame--right {
+    transform: translate3d(var(--wall-offset), 0, calc(-1px * var(--frame-z, var(--fz, 0)))) rotateY(-18deg);
+  }
+}

@@ -4,10 +4,14 @@
 (function () {
   'use strict';
 
-  const PAGES = ['about', 'projects', 'services', 'team', 'contact'];
+  const PAGES = ['artists', 'exhibitions', 'collection', 'submit'];
+
+  function I18n() {
+    return window.GlowGalleryI18n;
+  }
   const ENTRANCE_DURATION = 2800;
-  const MAX_DEPTH = 2500;
-  const SCROLL_RATIO = 2.35;
+  const MAX_DEPTH = 2000;
+  const SCROLL_RATIO = 1.15;
   const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const entrance = document.getElementById('entrance');
@@ -39,7 +43,14 @@
 
   /* ——— Boot ——— */
   function init() {
+    if (window.GlowGalleryI18n) GlowGalleryI18n.init();
+
     if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+    window.addEventListener('glow:langchange', () => {
+      if (currentPage) I18n()?.updateDocumentTitle(currentPage);
+      else I18n()?.updateDocumentTitle();
+    });
 
     setupNavigation();
     setupContactForm();
@@ -193,7 +204,7 @@
     if (walkProgressBar) walkProgressBar.style.width = `${progress * 100}%`;
     if (walkProgressEl) walkProgressEl.setAttribute('aria-valuenow', String(Math.round(progress * 100)));
 
-    document.body.classList.toggle('corridor-end', progress > 0.92);
+    document.body.classList.toggle('corridor-end', progress > 0.88);
 
     document.querySelectorAll('.corridor-frame--nav').forEach((frame) => {
       const depth = Number(frame.dataset.depth) || 0;
@@ -214,8 +225,8 @@
       if (currentPage) return;
       const rect = viewport.getBoundingClientRect();
       if (rect.top > window.innerHeight || rect.bottom < 0) return;
-      tx = ((e.clientX - rect.left) / rect.width - 0.5) * 8;
-      ty = ((e.clientY - rect.top) / rect.height - 0.5) * 5;
+      tx = ((e.clientX - rect.left) / rect.width - 0.5) * 4;
+      ty = ((e.clientY - rect.top) / rect.height - 0.5) * 3;
       if (!raf) raf = requestAnimationFrame(applyTilt);
     });
 
@@ -308,7 +319,7 @@
       homeBtn?.removeAttribute('hidden');
       homeBtn?.classList.add('is-visible');
 
-      document.title = `${capitalize(page)} | The Glow Gallery`;
+      I18n()?.updateDocumentTitle(page);
       currentPage = page;
       window.scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
 
@@ -332,7 +343,7 @@
       homeBtn?.classList.remove('is-visible');
       homeBtn?.setAttribute('hidden', '');
 
-      document.title = 'The Glow Gallery | Immersive Creative Exhibition';
+      I18n()?.updateDocumentTitle();
       currentPage = null;
 
       requestAnimationFrame(() => {
@@ -358,7 +369,7 @@
       toEl.removeAttribute('hidden');
       toEl.classList.add('is-visible');
 
-      document.title = `${capitalize(to)} | The Glow Gallery`;
+      I18n()?.updateDocumentTitle(to);
       currentPage = to;
       window.scrollTo({ top: 0, behavior: REDUCED_MOTION ? 'auto' : 'smooth' });
 
@@ -372,25 +383,25 @@
     pauseCorridorScroll(!!currentPage);
   }
 
-  function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
   function setupContactForm() {
-    const form = document.querySelector('.contact-form');
-    const feedback = document.getElementById('form-feedback');
-    const submitBtn = document.getElementById('contact-submit');
+    const form = document.getElementById('submit-form');
+    const feedback = document.getElementById('submit-feedback');
+    const submitBtn = document.getElementById('submit-btn');
 
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (feedback) {
-        feedback.textContent = 'Thank you — your inquiry has been received. We will be in touch soon.';
-      }
+      if (feedback) feedback.textContent = I18n()?.t('pages.submit.success') || '';
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sent';
+        submitBtn.textContent = I18n()?.t('pages.submit.submittedBtn') || 'Submitted';
       }
       form.reset();
+    });
+
+    window.addEventListener('glow:langchange', () => {
+      if (submitBtn?.disabled) {
+        submitBtn.textContent = I18n()?.t('pages.submit.submittedBtn') || '';
+      }
     });
   }
 

@@ -138,7 +138,7 @@
 .about-visual {
   aspect-ratio: 1;
   border-radius: var(--radius-lg);
-  background: linear-gradient(135deg, var(--light-beige), var(--soft-olive));
+  background: linear-gradient(135deg, var(--mist-blue), var(--soft-sky));
   position: relative;
   overflow: hidden;
 }
@@ -206,19 +206,19 @@
 }
 
 .project-thumb--1 {
-  background: linear-gradient(135deg, var(--soft-olive), var(--sage));
+  background: linear-gradient(135deg, var(--mist-blue), var(--soft-sky));
 }
 
 .project-thumb--2 {
-  background: linear-gradient(160deg, var(--olive-accent), var(--sage));
+  background: linear-gradient(160deg, var(--navy-accent), var(--steel-blue));
 }
 
 .project-thumb--3 {
-  background: linear-gradient(120deg, var(--light-beige), var(--warm-taupe));
+  background: linear-gradient(120deg, var(--powder-blue), var(--steel-blue));
 }
 
 .project-thumb--4 {
-  background: linear-gradient(180deg, var(--sage), var(--olive-accent));
+  background: linear-gradient(180deg, var(--soft-sky), var(--navy-accent));
 }
 
 .project-body {
@@ -300,19 +300,19 @@
 }
 
 .team-avatar--1 {
-  background: linear-gradient(135deg, var(--soft-olive), var(--light-beige));
+  background: linear-gradient(135deg, var(--soft-sky), var(--mist-blue));
 }
 
 .team-avatar--2 {
-  background: linear-gradient(135deg, var(--sage), var(--olive-accent));
+  background: linear-gradient(135deg, var(--steel-blue), var(--navy-accent));
 }
 
 .team-avatar--3 {
-  background: linear-gradient(135deg, var(--light-beige), var(--warm-taupe));
+  background: linear-gradient(135deg, var(--powder-blue), var(--steel-blue));
 }
 
 .team-avatar--4 {
-  background: linear-gradient(135deg, var(--olive-accent), var(--sage));
+  background: linear-gradient(135deg, var(--navy-accent), var(--soft-sky));
 }
 
 .team-card h3 {
@@ -371,7 +371,7 @@
 .form-row textarea:focus {
   outline: none;
   border-color: var(--sage);
-  box-shadow: 0 0 0 3px rgba(169, 181, 156, 0.35);
+  box-shadow: 0 0 0 3px rgba(111, 155, 195, 0.35);
 }
 
 .form-row textarea {
@@ -396,7 +396,7 @@
 }
 
 .btn-primary:hover {
-  background: #5a6652;
+  background: #356189;
   transform: translateY(-2px);
 }
 
@@ -441,6 +441,47 @@
   border-top: 1px solid rgba(58, 58, 58, 0.08);
   font-size: 0.95rem;
   color: var(--charcoal-soft);
+}
+
+.collection-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.guidelines-list {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.guidelines-list li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--charcoal-soft);
+}
+
+.guidelines-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+
+@media (max-width: 900px) {
+  .collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .collection-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Stagger animations for cards */

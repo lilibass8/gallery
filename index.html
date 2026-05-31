@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="The Glow Gallery — an immersive digital art exhibition. Explore About, Projects, Services, Team, and Contact through interactive framed artworks." />
-  <meta name="theme-color" content="#F8F5F0" />
+  <meta name="description" content="The Glow Gallery — walk through our corridor to discover Artists, Exhibitions, the Collection, and submit your own artwork." />
+  <meta name="theme-color" content="#EAF4FF" />
   <title>The Glow Gallery | Immersive Creative Exhibition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,53 +14,55 @@
   <link rel="stylesheet" href="css/pages.css" />
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
+  <a href="#main" class="skip-link" data-i18n="skip">Skip to main content</a>
 
-  <!-- Cinematic entrance -->
+  <div class="lang-switcher" role="group" data-i18n-aria="lang.group">
+    <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true" data-i18n="lang.en">EN</button>
+    <span class="lang-divider" aria-hidden="true">|</span>
+    <button type="button" class="lang-btn" data-lang="ar" aria-pressed="false" data-i18n="lang.ar">عربي</button>
+  </div>
+
   <div id="entrance" class="entrance" aria-hidden="true">
     <div class="entrance-vignette"></div>
     <div class="entrance-content">
-      <p class="entrance-eyebrow">Welcome to</p>
-      <h1 class="entrance-title">The Glow Gallery</h1>
+      <p class="entrance-eyebrow" data-i18n="entrance.eyebrow">Welcome to</p>
+      <h1 class="entrance-title" data-i18n="entrance.title">The Glow Gallery</h1>
       <div class="entrance-line"></div>
-      <p class="entrance-sub">Step inside the exhibition</p>
+      <p class="entrance-sub" data-i18n="entrance.sub">Step inside the exhibition</p>
     </div>
     <div class="entrance-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
       <span class="entrance-progress-bar"></span>
     </div>
   </div>
 
-  <!-- Ambient lighting layer -->
   <div class="ambient-light" aria-hidden="true"></div>
   <div class="ambient-dust" aria-hidden="true"></div>
 
-  <!-- Floating home control -->
-  <button type="button" id="home-btn" class="home-btn" aria-label="Return to gallery" title="Gallery home" hidden>
+  <button type="button" id="home-btn" class="home-btn" data-i18n-aria="home.label" data-i18n-title="home.label" title="Return to gallery" hidden>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
       <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1h-5v-7H9v7H4a1 1 0 01-1-1V9.5z"/>
     </svg>
-    <span>Gallery</span>
+    <span data-i18n="home.text">Gallery</span>
   </button>
 
   <main id="main">
-    <!-- Scroll-driven gallery corridor -->
-    <section id="gallery-room" class="corridor-experience" aria-label="Gallery corridor exhibition walkthrough">
+    <section id="gallery-room" class="corridor-experience" data-i18n-aria="corridorAria" aria-label="Gallery corridor exhibition walkthrough">
       <div class="corridor-scroll-track" id="corridor-scroll-track">
         <div class="corridor-sticky">
           <header class="corridor-hud">
             <div class="corridor-brand">
               <span class="brand-mark" aria-hidden="true"></span>
               <div>
-                <p class="brand-eyebrow">Digital Exhibition</p>
-                <h2 class="brand-name">The Glow Gallery</h2>
+                <p class="brand-eyebrow" data-i18n="brand.eyebrow">Digital Exhibition</p>
+                <h2 class="brand-name" data-i18n="brand.name">The Glow Gallery</h2>
               </div>
             </div>
             <div class="corridor-hud-right">
               <p class="walk-hint" id="gallery-hint">
                 <span class="walk-hint-icon" aria-hidden="true">↓</span>
-                Scroll to walk the corridor
+                <span data-i18n="walkHint">Scroll gently to walk the corridor</span>
               </p>
-              <div class="walk-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Corridor walk progress">
+              <div class="walk-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-i18n-aria="walkProgressAria" aria-label="Corridor walk progress">
                 <span class="walk-progress-bar" id="walk-progress-bar"></span>
               </div>
             </div>
@@ -72,7 +74,6 @@
             <div class="corridor-fog corridor-fog--near" aria-hidden="true"></div>
 
             <div class="corridor-scene" id="corridor-scene">
-              <!-- Static environment (parallax layers) -->
               <div class="corridor-env" id="corridor-env" aria-hidden="true">
                 <div class="corridor-ceiling">
                   <div class="ceiling-lights" id="ceiling-lights"></div>
@@ -84,73 +85,71 @@
                 <div class="corridor-baseboards corridor-baseboards--right"></div>
               </div>
 
-              <!-- Moving world — advances with scroll -->
               <div class="corridor-world" id="corridor-world">
                 <div class="corridor-depth corridor-depth--far" aria-hidden="true"></div>
                 <div class="corridor-depth corridor-depth--mid" aria-hidden="true"></div>
 
-                <!-- Decorative art (no link) -->
-                <div class="corridor-frame corridor-frame--deco corridor-frame--right" style="--fz: 200" aria-hidden="true">
-                  <div class="frame-piece"><img src="assets/art/deco-1.svg" alt="" width="400" height="520" loading="lazy" /></div>
-                </div>
-                <div class="corridor-frame corridor-frame--deco corridor-frame--left" style="--fz: 450" aria-hidden="true">
-                  <div class="frame-piece"><img src="assets/art/deco-2.svg" alt="" width="400" height="520" loading="lazy" /></div>
-                </div>
-
-                <nav class="corridor-frames" aria-label="Gallery navigation — select artwork to enter a room">
-                  <a href="#about" class="corridor-frame corridor-frame--nav corridor-frame--left" data-page="about" data-depth="550" aria-label="About — enter room">
+                <nav class="corridor-frames" data-i18n-aria="corridorNav" aria-label="Gallery navigation">
+                  <a href="#artists" class="corridor-frame corridor-frame--nav corridor-frame--right" data-page="artists" data-depth="480" data-i18n-aria="frames.artists.aria">
+                    <div class="frame-spotlight" aria-hidden="true"></div>
                     <div class="frame-shadow"></div>
                     <div class="frame-piece">
-                      <img src="assets/art/about.svg" alt="Abstract artwork — About" width="400" height="520" loading="eager" />
+                      <img src="assets/art/artists.svg" data-i18n-alt="frames.artists.imgAlt" alt="" width="400" height="520" loading="eager" />
                       <span class="frame-gleam" aria-hidden="true"></span>
                     </div>
-                    <span class="frame-plate">About</span>
+                    <div class="frame-label">
+                      <span class="frame-emoji" aria-hidden="true">🎨</span>
+                      <span class="frame-title" data-i18n="frames.artists.title">Artists Gallery</span>
+                      <span class="frame-desc" data-i18n="frames.artists.desc">Meet the creators behind the artworks</span>
+                    </div>
                   </a>
 
-                  <a href="#projects" class="corridor-frame corridor-frame--nav corridor-frame--right" data-page="projects" data-depth="950" aria-label="Projects — enter room">
+                  <a href="#exhibitions" class="corridor-frame corridor-frame--nav corridor-frame--left" data-page="exhibitions" data-depth="880" data-i18n-aria="frames.exhibitions.aria">
+                    <div class="frame-spotlight" aria-hidden="true"></div>
                     <div class="frame-shadow"></div>
                     <div class="frame-piece">
-                      <img src="assets/art/projects.svg" alt="Modern illustration — Projects" width="400" height="520" loading="lazy" />
+                      <img src="assets/art/exhibitions.svg" data-i18n-alt="frames.exhibitions.imgAlt" alt="" width="400" height="520" loading="lazy" />
                       <span class="frame-gleam" aria-hidden="true"></span>
                     </div>
-                    <span class="frame-plate">Projects</span>
+                    <div class="frame-label">
+                      <span class="frame-emoji" aria-hidden="true">🖼️</span>
+                      <span class="frame-title" data-i18n="frames.exhibitions.title">Exhibitions</span>
+                      <span class="frame-desc" data-i18n="frames.exhibitions.desc">Discover featured and current exhibitions</span>
+                    </div>
                   </a>
 
-                  <div class="corridor-frame corridor-frame--deco corridor-frame--right" style="--fz: 1150" aria-hidden="true">
-                    <div class="frame-piece"><img src="assets/art/deco-3.svg" alt="" width="400" height="520" loading="lazy" /></div>
-                  </div>
-
-                  <a href="#services" class="corridor-frame corridor-frame--nav corridor-frame--left" data-page="services" data-depth="1350" aria-label="Services — enter room">
+                  <a href="#collection" class="corridor-frame corridor-frame--nav corridor-frame--right" data-page="collection" data-depth="1280" data-i18n-aria="frames.collection.aria">
+                    <div class="frame-spotlight" aria-hidden="true"></div>
                     <div class="frame-shadow"></div>
                     <div class="frame-piece">
-                      <img src="assets/art/services.svg" alt="Concept art — Services" width="400" height="520" loading="lazy" />
+                      <img src="assets/art/collection.svg" data-i18n-alt="frames.collection.imgAlt" alt="" width="400" height="520" loading="lazy" />
                       <span class="frame-gleam" aria-hidden="true"></span>
                     </div>
-                    <span class="frame-plate">Services</span>
+                    <div class="frame-label">
+                      <span class="frame-emoji" aria-hidden="true">🔍</span>
+                      <span class="frame-title" data-i18n="frames.collection.title">Explore Collection</span>
+                      <span class="frame-desc" data-i18n="frames.collection.desc">Explore artworks throughout the gallery</span>
+                    </div>
                   </a>
 
-                  <a href="#team" class="corridor-frame corridor-frame--nav corridor-frame--right" data-page="team" data-depth="1750" aria-label="Team — enter room">
+                  <a href="#submit" class="corridor-frame corridor-frame--nav corridor-frame--finale" data-page="submit" data-depth="2000" data-i18n-aria="frames.submit.aria">
+                    <div class="frame-finale-glow" aria-hidden="true"></div>
+                    <div class="frame-spotlight frame-spotlight--strong" aria-hidden="true"></div>
                     <div class="frame-shadow"></div>
                     <div class="frame-piece">
-                      <img src="assets/art/team.svg" alt="Minimal portrait composition — Team" width="400" height="520" loading="lazy" />
+                      <img src="assets/art/submit.svg" data-i18n-alt="frames.submit.imgAlt" alt="" width="400" height="520" loading="lazy" />
                       <span class="frame-gleam" aria-hidden="true"></span>
                     </div>
-                    <span class="frame-plate">Team</span>
-                  </a>
-
-                  <a href="#contact" class="corridor-frame corridor-frame--nav corridor-frame--left" data-page="contact" data-depth="2150" aria-label="Contact — enter room">
-                    <div class="frame-shadow"></div>
-                    <div class="frame-piece">
-                      <img src="assets/art/contact.svg" alt="Creative photography style — Contact" width="400" height="520" loading="lazy" />
-                      <span class="frame-gleam" aria-hidden="true"></span>
+                    <div class="frame-label frame-label--finale">
+                      <span class="frame-emoji" aria-hidden="true">✨</span>
+                      <span class="frame-title" data-i18n="frames.submit.title">Submit Your Artwork</span>
+                      <span class="frame-desc" data-i18n="frames.submit.desc">Share your creativity with the gallery</span>
                     </div>
-                    <span class="frame-plate">Contact</span>
                   </a>
                 </nav>
 
-                <div class="corridor-end" aria-hidden="true">
-                  <p class="corridor-end-text">End of corridor</p>
-                  <button type="button" class="corridor-end-back" id="corridor-reset">Walk back to entrance</button>
+                <div class="corridor-end">
+                  <button type="button" class="corridor-end-back" id="corridor-reset" data-i18n="corridorReset">Walk back to entrance</button>
                 </div>
               </div>
             </div>
@@ -159,191 +158,180 @@
       </div>
     </section>
 
-    <!-- Content rooms -->
     <div id="page-container" class="page-container" hidden>
-      <article id="page-about" class="page" data-page="about" hidden>
+      <article id="page-artists" class="page" data-page="artists" hidden>
         <div class="page-inner">
           <header class="page-header">
-            <span class="page-tag">Room I</span>
-            <h1>About</h1>
-            <p class="page-lead">Where vision meets craft in a space built for luminous ideas.</p>
+            <span class="page-tag" data-i18n="pages.artists.tag">🎨 Gallery Wing</span>
+            <h1 data-i18n="pages.artists.title">Artists Gallery</h1>
+            <p class="page-lead" data-i18n="pages.artists.lead">Meet the creators behind the artworks and discover featured artists.</p>
           </header>
-          <div class="page-content glass-panel">
-            <div class="about-grid">
-              <div class="about-text">
-                <p>The Glow Gallery is a creative studio and digital exhibition space dedicated to elevating brands through refined design, immersive experiences, and thoughtful storytelling.</p>
-                <p>Founded on the belief that every project deserves gallery-quality attention, we blend art direction, technology, and human-centered design into work that feels both timeless and unmistakably modern.</p>
-                <ul class="stat-list">
-                  <li><strong>12+</strong><span>Years of craft</span></li>
-                  <li><strong>180+</strong><span>Projects delivered</span></li>
-                  <li><strong>24</strong><span>Countries reached</span></li>
-                </ul>
-              </div>
-              <div class="about-visual" aria-hidden="true">
-                <div class="about-orbit"></div>
-              </div>
-            </div>
+          <div class="team-grid">
+            <article class="team-card glass-panel">
+              <div class="team-avatar team-avatar--1" aria-hidden="true"></div>
+              <h3 data-i18n="pages.artists.c1.name">Elena Vasquez</h3>
+              <p class="team-role" data-i18n="pages.artists.c1.role">Contemporary Oil · Featured</p>
+              <p class="team-bio" data-i18n="pages.artists.c1.bio"></p>
+            </article>
+            <article class="team-card glass-panel">
+              <div class="team-avatar team-avatar--2" aria-hidden="true"></div>
+              <h3 data-i18n="pages.artists.c2.name">Marcus Chen</h3>
+              <p class="team-role" data-i18n="pages.artists.c2.role">Digital Mixed Media</p>
+              <p class="team-bio" data-i18n="pages.artists.c2.bio"></p>
+            </article>
+            <article class="team-card glass-panel">
+              <div class="team-avatar team-avatar--3" aria-hidden="true"></div>
+              <h3 data-i18n="pages.artists.c3.name">Amira El-Khoury</h3>
+              <p class="team-role" data-i18n="pages.artists.c3.role">Sculpture & Installation</p>
+              <p class="team-bio" data-i18n="pages.artists.c3.bio"></p>
+            </article>
+            <article class="team-card glass-panel">
+              <div class="team-avatar team-avatar--4" aria-hidden="true"></div>
+              <h3 data-i18n="pages.artists.c4.name">James Okonkwo</h3>
+              <p class="team-role" data-i18n="pages.artists.c4.role">Photography</p>
+              <p class="team-bio" data-i18n="pages.artists.c4.bio"></p>
+            </article>
           </div>
         </div>
       </article>
 
-      <article id="page-projects" class="page" data-page="projects" hidden>
+      <article id="page-exhibitions" class="page" data-page="exhibitions" hidden>
         <div class="page-inner">
           <header class="page-header">
-            <span class="page-tag">Room II</span>
-            <h1>Projects</h1>
-            <p class="page-lead">Selected works from our ongoing collection of brand and digital experiences.</p>
+            <span class="page-tag" data-i18n="pages.exhibitions.tag">🖼️ Now Showing</span>
+            <h1 data-i18n="pages.exhibitions.title">Exhibitions</h1>
+            <p class="page-lead" data-i18n="pages.exhibitions.lead">Explore current, featured, and upcoming exhibitions.</p>
           </header>
           <div class="card-grid">
             <article class="project-card glass-panel">
               <div class="project-thumb project-thumb--1" aria-hidden="true"></div>
               <div class="project-body">
-                <h3>Lumen Identity</h3>
-                <p>Complete brand system for a sustainable lighting atelier — identity, packaging, and digital presence.</p>
-                <span class="project-meta">Branding · 2025</span>
+                <h3 data-i18n="pages.exhibitions.e1.title">Soft Light · Current</h3>
+                <p data-i18n="pages.exhibitions.e1.desc"></p>
+                <span class="project-meta" data-i18n="pages.exhibitions.e1.meta"></span>
               </div>
             </article>
             <article class="project-card glass-panel">
               <div class="project-thumb project-thumb--2" aria-hidden="true"></div>
               <div class="project-body">
-                <h3>Atelier Nocturne</h3>
-                <p>Immersive e-commerce experience with cinematic product storytelling and subtle motion design.</p>
-                <span class="project-meta">Digital · 2024</span>
+                <h3 data-i18n="pages.exhibitions.e2.title">Earth & Line · Featured</h3>
+                <p data-i18n="pages.exhibitions.e2.desc"></p>
+                <span class="project-meta" data-i18n="pages.exhibitions.e2.meta"></span>
               </div>
             </article>
             <article class="project-card glass-panel">
               <div class="project-thumb project-thumb--3" aria-hidden="true"></div>
               <div class="project-body">
-                <h3>Verdant Pavilion</h3>
-                <p>Architectural visualization platform with interactive 3D walkthroughs and editorial layouts.</p>
-                <span class="project-meta">Experience · 2024</span>
+                <h3 data-i18n="pages.exhibitions.e3.title">Urban Bloom · Upcoming</h3>
+                <p data-i18n="pages.exhibitions.e3.desc"></p>
+                <span class="project-meta" data-i18n="pages.exhibitions.e3.meta"></span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </article>
+
+      <article id="page-collection" class="page" data-page="collection" hidden>
+        <div class="page-inner">
+          <header class="page-header">
+            <span class="page-tag" data-i18n="pages.collection.tag">🔍 Collection</span>
+            <h1 data-i18n="pages.collection.title">Explore Collection</h1>
+            <p class="page-lead" data-i18n="pages.collection.lead">Explore the artworks displayed throughout the gallery.</p>
+          </header>
+          <div class="card-grid collection-grid">
+            <article class="project-card glass-panel">
+              <div class="project-thumb project-thumb--1" aria-hidden="true"></div>
+              <div class="project-body">
+                <h3 data-i18n="pages.collection.i1.title">Ivory Drift</h3>
+                <p data-i18n="pages.collection.i1.desc"></p>
+                <span class="project-meta" data-i18n="pages.collection.i1.meta"></span>
+              </div>
+            </article>
+            <article class="project-card glass-panel">
+              <div class="project-thumb project-thumb--2" aria-hidden="true"></div>
+              <div class="project-body">
+                <h3 data-i18n="pages.collection.i2.title">Studio No. 7</h3>
+                <p data-i18n="pages.collection.i2.desc"></p>
+                <span class="project-meta" data-i18n="pages.collection.i2.meta"></span>
+              </div>
+            </article>
+            <article class="project-card glass-panel">
+              <div class="project-thumb project-thumb--3" aria-hidden="true"></div>
+              <div class="project-body">
+                <h3 data-i18n="pages.collection.i3.title">Harmonic Field</h3>
+                <p data-i18n="pages.collection.i3.desc"></p>
+                <span class="project-meta" data-i18n="pages.collection.i3.meta"></span>
               </div>
             </article>
             <article class="project-card glass-panel">
               <div class="project-thumb project-thumb--4" aria-hidden="true"></div>
               <div class="project-body">
-                <h3>Harmonic Resonance</h3>
-                <p>Audio brand campaign spanning motion, spatial sound design, and premium print collateral.</p>
-                <span class="project-meta">Campaign · 2023</span>
+                <h3 data-i18n="pages.collection.i4.title">Threshold</h3>
+                <p data-i18n="pages.collection.i4.desc"></p>
+                <span class="project-meta" data-i18n="pages.collection.i4.meta"></span>
+              </div>
+            </article>
+            <article class="project-card glass-panel">
+              <div class="project-thumb project-thumb--1" aria-hidden="true"></div>
+              <div class="project-body">
+                <h3 data-i18n="pages.collection.i5.title">Still Morning</h3>
+                <p data-i18n="pages.collection.i5.desc"></p>
+                <span class="project-meta" data-i18n="pages.collection.i5.meta"></span>
+              </div>
+            </article>
+            <article class="project-card glass-panel">
+              <div class="project-thumb project-thumb--3" aria-hidden="true"></div>
+              <div class="project-body">
+                <h3 data-i18n="pages.collection.i6.title">Azure Hour</h3>
+                <p data-i18n="pages.collection.i6.desc"></p>
+                <span class="project-meta" data-i18n="pages.collection.i6.meta"></span>
               </div>
             </article>
           </div>
         </div>
       </article>
 
-      <article id="page-services" class="page" data-page="services" hidden>
+      <article id="page-submit" class="page" data-page="submit" hidden>
         <div class="page-inner">
           <header class="page-header">
-            <span class="page-tag">Room III</span>
-            <h1>Services</h1>
-            <p class="page-lead">Curated capabilities for brands seeking distinction without excess.</p>
+            <span class="page-tag" data-i18n="pages.submit.tag">✨ Open Call</span>
+            <h1 data-i18n="pages.submit.title">Submit Your Artwork</h1>
+            <p class="page-lead" data-i18n="pages.submit.lead">Share your creativity with the gallery.</p>
           </header>
-          <div class="service-list">
-            <div class="service-item glass-panel">
-              <span class="service-num">01</span>
-              <div>
-                <h3>Brand & Identity</h3>
-                <p>Logos, visual systems, tone of voice, and guidelines that endure across every touchpoint.</p>
-              </div>
-            </div>
-            <div class="service-item glass-panel">
-              <span class="service-num">02</span>
-              <div>
-                <h3>Digital Experience</h3>
-                <p>Websites, apps, and interactive installations engineered for performance and elegance.</p>
-              </div>
-            </div>
-            <div class="service-item glass-panel">
-              <span class="service-num">03</span>
-              <div>
-                <h3>Art Direction</h3>
-                <p>Photography, motion, and spatial design that transforms concepts into sensory narratives.</p>
-              </div>
-            </div>
-            <div class="service-item glass-panel">
-              <span class="service-num">04</span>
-              <div>
-                <h3>Creative Strategy</h3>
-                <p>Research, positioning, and campaign architecture aligned with your long-term vision.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article id="page-team" class="page" data-page="team" hidden>
-        <div class="page-inner">
-          <header class="page-header">
-            <span class="page-tag">Room IV</span>
-            <h1>Team</h1>
-            <p class="page-lead">The curators behind every frame, room, and luminous detail.</p>
-          </header>
-          <div class="team-grid">
-            <article class="team-card glass-panel">
-              <div class="team-avatar team-avatar--1" aria-hidden="true"></div>
-              <h3>Elena Vasquez</h3>
-              <p class="team-role">Creative Director</p>
-              <p class="team-bio">Shapes the visual language and exhibition philosophy of every Glow Gallery project.</p>
-            </article>
-            <article class="team-card glass-panel">
-              <div class="team-avatar team-avatar--2" aria-hidden="true"></div>
-              <h3>Marcus Chen</h3>
-              <p class="team-role">Lead Developer</p>
-              <p class="team-bio">Builds immersive digital spaces with precision, accessibility, and fluid motion.</p>
-            </article>
-            <article class="team-card glass-panel">
-              <div class="team-avatar team-avatar--3" aria-hidden="true"></div>
-              <h3>Amira El-Khoury</h3>
-              <p class="team-role">Brand Strategist</p>
-              <p class="team-bio">Connects narrative, culture, and market insight into cohesive brand stories.</p>
-            </article>
-            <article class="team-card glass-panel">
-              <div class="team-avatar team-avatar--4" aria-hidden="true"></div>
-              <h3>James Okonkwo</h3>
-              <p class="team-role">Motion Designer</p>
-              <p class="team-bio">Crafts cinematic transitions and micro-interactions that breathe life into static ideas.</p>
-            </article>
-          </div>
-        </div>
-      </article>
-
-      <article id="page-contact" class="page" data-page="contact" hidden>
-        <div class="page-inner">
-          <header class="page-header">
-            <span class="page-tag">Room V</span>
-            <h1>Contact</h1>
-            <p class="page-lead">Begin your commission — we respond within one business day.</p>
-          </header>
-          <div class="contact-layout">
-            <form class="contact-form glass-panel" action="#" method="post" onsubmit="return false;">
+          <div class="contact-layout submit-layout">
+            <form class="contact-form submit-form glass-panel" id="submit-form" action="#" method="post">
               <div class="form-row">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" autocomplete="name" required placeholder="Your name" />
+                <label for="artist-name" data-i18n="pages.submit.nameLabel">Artist name</label>
+                <input type="text" id="artist-name" name="artist-name" autocomplete="name" required data-i18n-placeholder="pages.submit.namePlaceholder" placeholder="Your full name" />
               </div>
               <div class="form-row">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@studio.com" />
+                <label for="artist-email" data-i18n="pages.submit.emailLabel">Email</label>
+                <input type="email" id="artist-email" name="email" autocomplete="email" required data-i18n-placeholder="pages.submit.emailPlaceholder" placeholder="you@email.com" />
               </div>
               <div class="form-row">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="4" required placeholder="Tell us about your project…"></textarea>
+                <label for="art-medium" data-i18n="pages.submit.mediumLabel">Medium</label>
+                <input type="text" id="art-medium" name="medium" required data-i18n-placeholder="pages.submit.mediumPlaceholder" placeholder="Medium" />
               </div>
-              <button type="submit" class="btn-primary" id="contact-submit">Send inquiry</button>
-              <p class="form-note" id="form-feedback" role="status" aria-live="polite"></p>
+              <div class="form-row">
+                <label for="art-statement" data-i18n="pages.submit.statementLabel">Artist statement</label>
+                <textarea id="art-statement" name="statement" rows="3" required data-i18n-placeholder="pages.submit.statementPlaceholder" placeholder="Statement"></textarea>
+              </div>
+              <div class="form-row">
+                <label for="portfolio" data-i18n="pages.submit.portfolioLabel">Portfolio link</label>
+                <input type="url" id="portfolio" name="portfolio" data-i18n-placeholder="pages.submit.portfolioPlaceholder" placeholder="https://" />
+              </div>
+              <button type="submit" class="btn-primary" id="submit-btn" data-i18n="pages.submit.submitBtn">Submit artwork</button>
+              <p class="form-note" id="submit-feedback" role="status" aria-live="polite"></p>
             </form>
             <aside class="contact-info glass-panel">
-              <h3>Visit the studio</h3>
-              <address>
-                42 Luminary Lane<br />
-                Arts District, CA 90013
-              </address>
-              <p><a href="mailto:hello@glowgallery.studio">hello@glowgallery.studio</a></p>
-              <p><a href="tel:+13105550142">+1 (310) 555-0142</a></p>
-              <div class="contact-hours">
-                <p><strong>Hours</strong></p>
-                <p>Mon – Fri · 9am – 6pm PST</p>
-              </div>
-              <p class="contact-ar" lang="ar" dir="rtl">تواصل معنا — نحن نرحب بالمشاريع العالمية</p>
+              <h3 data-i18n="pages.submit.guidelinesTitle">Submission guidelines</h3>
+              <ul class="guidelines-list">
+                <li data-i18n="pages.submit.g1"></li>
+                <li data-i18n="pages.submit.g2"></li>
+                <li data-i18n="pages.submit.g3"></li>
+              </ul>
+              <p><a href="mailto:submissions@glowgallery.studio">submissions@glowgallery.studio</a></p>
+              <p class="contact-note" data-i18n="pages.submit.sidebarNote"></p>
             </aside>
           </div>
         </div>
@@ -352,9 +340,10 @@
   </main>
 
   <footer class="site-footer" id="site-footer">
-    <p>&copy; <span id="year"></span> The Glow Gallery. All rights reserved.</p>
+    <p>&copy; <span id="year"></span> <span data-i18n="footer">The Glow Gallery. All rights reserved.</span></p>
   </footer>
 
+  <script src="js/i18n.js" defer></script>
   <script src="js/app.js" defer></script>
 </body>
 </html>

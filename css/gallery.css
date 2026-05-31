@@ -99,7 +99,7 @@ body.corridor-end .walk-hint {
 .walk-progress {
   width: 100px;
   height: 2px;
-  background: rgba(110, 123, 99, 0.2);
+  background: rgba(111, 155, 195, 0.25);
   border-radius: 2px;
   overflow: hidden;
   margin-left: auto;
@@ -120,7 +120,7 @@ body.corridor-end .walk-hint {
   inset: 0;
   perspective: var(--corridor-perspective);
   perspective-origin: 50% 48%;
-  background: linear-gradient(180deg, #2a2824 0%, #1e1c19 40%, #151412 100%);
+  background: linear-gradient(180deg, #1e3a56 0%, #27496d 45%, #1a3550 100%);
   overflow: hidden;
 }
 
@@ -129,7 +129,7 @@ body.corridor-end .walk-hint {
   inset: 0;
   z-index: 25;
   pointer-events: none;
-  background: radial-gradient(ellipse 70% 60% at 50% 45%, transparent 20%, rgba(20, 18, 16, 0.55) 100%);
+  background: radial-gradient(ellipse 70% 60% at 50% 45%, transparent 20%, rgba(26, 53, 80, 0.5) 100%);
 }
 
 .corridor-fog {
@@ -140,11 +140,11 @@ body.corridor-end .walk-hint {
 }
 
 .corridor-fog--far {
-  background: linear-gradient(180deg, transparent 30%, rgba(248, 245, 240, 0.04) 70%, rgba(216, 198, 178, 0.08) 100%);
+  background: linear-gradient(180deg, transparent 30%, rgba(234, 244, 255, 0.06) 70%, rgba(199, 221, 245, 0.1) 100%);
 }
 
 .corridor-fog--near {
-  background: linear-gradient(0deg, rgba(30, 28, 25, 0.5) 0%, transparent 35%);
+  background: linear-gradient(0deg, rgba(26, 53, 80, 0.45) 0%, transparent 35%);
 }
 
 .corridor-scene {
@@ -168,7 +168,7 @@ body.corridor-end .walk-hint {
   left: -20%;
   right: -20%;
   height: 42%;
-  background: linear-gradient(180deg, #3d3a36 0%, #4a4640 40%, #5c574f 100%);
+  background: linear-gradient(180deg, #2a4a6a 0%, #355f85 40%, #3d6d94 100%);
   transform-origin: center bottom;
   transform: rotateX(12deg) translateZ(-80px);
   overflow: hidden;
@@ -188,9 +188,9 @@ body.corridor-end .walk-hint {
   width: 12%;
   max-width: 80px;
   height: 8px;
-  background: radial-gradient(ellipse at center, rgba(255, 248, 235, 0.95) 0%, rgba(255, 235, 200, 0.4) 40%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(234, 244, 255, 0.95) 0%, rgba(175, 205, 235, 0.45) 40%, transparent 70%);
   border-radius: 50%;
-  box-shadow: 0 40px 80px rgba(255, 230, 190, 0.25);
+  box-shadow: 0 40px 80px rgba(111, 155, 195, 0.3);
 }
 
 .corridor-floor {
@@ -200,8 +200,8 @@ body.corridor-end .walk-hint {
   right: -30%;
   height: 38%;
   background:
-    linear-gradient(180deg, transparent 0%, rgba(110, 123, 99, 0.08) 20%),
-    linear-gradient(180deg, #8a7f72 0%, #6e675c 30%, #524c44 100%);
+    linear-gradient(180deg, transparent 0%, rgba(111, 155, 195, 0.1) 20%),
+    linear-gradient(180deg, #5a8ab0 0%, #4a7599 30%, #3a6285 100%);
   transform-origin: center top;
   transform: rotateX(-68deg) translateZ(20px);
   box-shadow: inset 0 2px 40px rgba(255, 255, 255, 0.06);
@@ -228,8 +228,8 @@ body.corridor-end .walk-hint {
   bottom: 12%;
   width: 55%;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.12) 0%, transparent 15%),
-    linear-gradient(180deg, #e7ddd1 0%, #d8c6b2 45%, #c9b8a4 100%);
+    linear-gradient(90deg, rgba(39, 73, 109, 0.08) 0%, transparent 15%),
+    linear-gradient(180deg, var(--mist-blue) 0%, var(--powder-blue) 45%, var(--soft-sky) 100%);
   box-shadow: inset 0 0 60px rgba(255, 255, 255, 0.15);
 }
 
@@ -237,14 +237,14 @@ body.corridor-end .walk-hint {
   left: 0;
   transform-origin: right center;
   transform: rotateY(42deg) translateZ(-40px);
-  border-right: 1px solid rgba(110, 123, 99, 0.15);
+  border-right: 1px solid rgba(111, 155, 195, 0.2);
 }
 
 .corridor-wall--right {
   right: 0;
   transform-origin: left center;
   transform: rotateY(-42deg) translateZ(-40px);
-  border-left: 1px solid rgba(110, 123, 99, 0.15);
+  border-left: 1px solid rgba(111, 155, 195, 0.2);
 }
 
 .corridor-wall::before {
@@ -260,7 +260,7 @@ body.corridor-end .walk-hint {
   bottom: 12%;
   width: 50%;
   height: 12px;
-  background: linear-gradient(180deg, #b7a293, #9a8878);
+  background: linear-gradient(180deg, var(--steel-blue), var(--navy-accent));
   transform: translateZ(2px);
 }
 
@@ -299,12 +299,12 @@ body.corridor-end .walk-hint {
 }
 
 .corridor-depth--far {
-  background: radial-gradient(ellipse at 50% 50%, rgba(248, 245, 240, 0.12) 0%, transparent 55%);
+  background: radial-gradient(ellipse at 50% 50%, rgba(234, 244, 255, 0.15) 0%, transparent 55%);
   transform: translate(-50%, -50%) translateZ(-1800px);
 }
 
 .corridor-depth--mid {
-  background: linear-gradient(180deg, transparent, rgba(169, 181, 156, 0.06));
+  background: linear-gradient(180deg, transparent, rgba(175, 205, 235, 0.08));
   transform: translate(-50%, -50%) translateZ(-900px);
 }
 
@@ -346,12 +346,62 @@ body.corridor-end .walk-hint {
   --frame-z: attr(data-depth number);
 }
 
-/* Set depth via inline style from data-depth in JS fallback; CSS custom properties from JS */
-.corridor-frame--nav[data-depth="550"] { --frame-z: 550; }
-.corridor-frame--nav[data-depth="950"] { --frame-z: 950; }
-.corridor-frame--nav[data-depth="1350"] { --frame-z: 1350; }
-.corridor-frame--nav[data-depth="1750"] { --frame-z: 1750; }
-.corridor-frame--nav[data-depth="2150"] { --frame-z: 2150; }
+.corridor-frame--nav[data-depth="480"] { --frame-z: 480; }
+.corridor-frame--nav[data-depth="880"] { --frame-z: 880; }
+.corridor-frame--nav[data-depth="1280"] { --frame-z: 1280; }
+.corridor-frame--nav[data-depth="2000"] { --frame-z: 2000; }
+
+/* Finale — end of corridor, centered & largest */
+.corridor-frame--finale {
+  --frame-w: clamp(130px, 20vw, 220px);
+  --frame-h: calc(var(--frame-w) * 1.32);
+  top: 38%;
+  transform: translate3d(-50%, 0, calc(-1px * var(--frame-z, 2000))) rotateY(0deg);
+  margin-left: calc(var(--frame-w) / -2);
+  z-index: 25;
+}
+
+.corridor-frame--finale .frame-piece {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(175, 205, 235, 0.35);
+}
+
+.frame-finale-glow {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  width: 180%;
+  height: 140%;
+  transform: translate(-50%, -30%) translateZ(-20px);
+  background: radial-gradient(ellipse at 50% 40%, rgba(234, 244, 255, 0.4) 0%, rgba(175, 205, 235, 0.15) 40%, transparent 70%);
+  pointer-events: none;
+  animation: finalePulse 4s ease-in-out infinite;
+}
+
+@keyframes finalePulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+.frame-spotlight {
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  width: 140%;
+  height: 80%;
+  transform: translateX(-50%) translateZ(-8px);
+  background: radial-gradient(ellipse at 50% 100%, rgba(234, 244, 255, 0.25) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.frame-spotlight--strong {
+  width: 200%;
+  height: 120%;
+  top: -55%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(234, 244, 255, 0.5) 0%, rgba(175, 205, 235, 0.2) 45%, transparent 70%);
+}
 
 .frame-shadow {
   position: absolute;
@@ -369,7 +419,7 @@ body.corridor-end .walk-hint {
   width: 100%;
   height: 100%;
   padding: 5%;
-  background: linear-gradient(145deg, #c4b0a0 0%, #9a8878 50%, #7d6e60 100%);
+  background: linear-gradient(145deg, var(--steel-blue) 0%, var(--navy-accent) 55%, #1e3a56 100%);
   border-radius: 2px;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.25),
@@ -401,21 +451,58 @@ body.corridor-end .walk-hint {
   pointer-events: none;
 }
 
-.frame-plate {
+/* Painting labels — title + description */
+.frame-label {
   position: absolute;
-  bottom: -1.75rem;
+  top: calc(100% + 0.5rem);
   left: 50%;
-  transform: translateX(-50%) translateZ(12px);
+  transform: translateX(-50%) translateZ(14px);
+  width: max-content;
+  max-width: calc(var(--frame-w) + 80px);
+  text-align: center;
+  pointer-events: none;
+}
+
+.frame-emoji {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+  line-height: 1;
+}
+
+.frame-title {
+  display: block;
   font-family: var(--font-display);
-  font-size: 0.6rem;
-  letter-spacing: 0.22em;
+  font-size: clamp(0.55rem, 1.2vw, 0.68rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--warm-ivory);
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
-  opacity: 0;
-  white-space: nowrap;
-  transition: opacity 0.3s, transform 0.3s var(--ease-out-expo);
-  pointer-events: none;
+  text-shadow: 0 1px 12px rgba(26, 53, 80, 0.75);
+  line-height: 1.3;
+  margin-bottom: 0.2rem;
+}
+
+.frame-desc {
+  display: block;
+  font-family: var(--font-body);
+  font-size: clamp(0.5rem, 1vw, 0.6rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: rgba(234, 244, 255, 0.88);
+  text-shadow: 0 1px 8px rgba(26, 53, 80, 0.7);
+  line-height: 1.4;
+  max-width: 14rem;
+}
+
+.frame-label--finale .frame-title {
+  font-size: clamp(0.62rem, 1.4vw, 0.78rem);
+  letter-spacing: 0.18em;
+}
+
+.frame-label--finale .frame-desc {
+  font-size: clamp(0.52rem, 1.1vw, 0.65rem);
+  color: rgba(234, 244, 255, 0.95);
 }
 
 .corridor-frame--nav:hover .frame-piece,
@@ -426,14 +513,17 @@ body.corridor-end .walk-hint {
     0 16px 40px rgba(0, 0, 0, 0.4);
 }
 
-.corridor-frame--nav:hover .frame-plate,
-.corridor-frame--nav:focus-visible .frame-plate {
-  opacity: 1;
-  transform: translateX(-50%) translateZ(16px) translateY(-4px);
+.corridor-frame--finale:hover .frame-piece,
+.corridor-frame--finale:focus-visible .frame-piece {
+  transform: translateZ(22px) scale(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 20px 50px rgba(0, 0, 0, 0.45),
+    0 0 80px rgba(175, 205, 235, 0.45);
 }
 
 .corridor-frame--nav:focus-visible {
-  outline: 2px solid var(--sage);
+  outline: 2px solid var(--steel-blue);
   outline-offset: 8px;
 }
 
@@ -441,32 +531,23 @@ body.corridor-end .walk-hint {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.3),
     0 12px 32px rgba(0, 0, 0, 0.4),
-    0 0 40px rgba(255, 235, 200, 0.15);
+    0 0 40px rgba(175, 205, 235, 0.25);
 }
 
-.corridor-frame--deco {
-  opacity: 0.92;
-  pointer-events: none;
+.corridor-frame--finale.is-near .frame-finale-glow {
+  opacity: 1;
 }
 
-/* Corridor end */
+/* Corridor end — below finale painting */
 .corridor-end {
   position: absolute;
   left: 50%;
-  top: 38%;
-  transform: translate(-50%, 0) translateZ(-2450px);
+  top: 58%;
+  transform: translate(-50%, 0) translateZ(-2100px);
   text-align: center;
   width: min(90vw, 400px);
   pointer-events: none;
-}
-
-.corridor-end-text {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(248, 245, 240, 0.5);
-  margin-bottom: 1rem;
+  z-index: 10;
 }
 
 .corridor-end-back {
@@ -477,16 +558,16 @@ body.corridor-end .walk-hint {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--warm-ivory);
-  background: rgba(248, 245, 240, 0.1);
+  background: rgba(234, 244, 255, 0.12);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(248, 245, 240, 0.2);
+  border: 1px solid rgba(234, 244, 255, 0.25);
   border-radius: 100px;
   cursor: pointer;
   transition: background 0.3s, transform 0.3s;
 }
 
 .corridor-end-back:hover {
-  background: rgba(248, 245, 240, 0.18);
+  background: rgba(234, 244, 255, 0.22);
   transform: translateY(-2px);
 }
 
@@ -626,5 +707,18 @@ body.entrance-done .corridor-viewport {
 
   .corridor-frame--right {
     transform: translate3d(var(--wall-offset), 0, calc(-1px * var(--frame-z, var(--fz, 0)))) rotateY(-18deg);
+  }
+
+  .corridor-frame--finale {
+    --frame-w: clamp(100px, 34vw, 150px);
+    transform: translate3d(-50%, 0, calc(-1px * var(--frame-z, 2000))) rotateY(0deg);
+  }
+
+  .frame-label {
+    max-width: 10rem;
+  }
+
+  .frame-title {
+    letter-spacing: 0.1em;
   }
 }

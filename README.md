@@ -1,14 +1,15 @@
 # The Glow Gallery
 
-An immersive first-person gallery corridor. **Scroll to walk forward** through the exhibition; click framed artworks on the walls to enter About, Projects, Services, Team, and Contact.
+Walk through an immersive digital corridor and discover four exhibition wings by interacting with paintings on the walls.
 
-## Experience
+## Corridor paintings
 
-- Cinematic entrance, then a 3D hallway with warm lighting and perspective depth
-- Scroll-driven camera — progress bar tracks how far you’ve walked
-- Frames alternate left/right with abstract SVG artwork in every frame
-- Smooth transitions into content “rooms” with glassmorphism UI
-- Warm interior palette (ivory, beige, sage, taupe, olive)
+| Wall / Position | Section | Description |
+|-----------------|---------|-------------|
+| Right | 🎨 Artists Gallery | Meet the creators behind the artworks |
+| Left | 🖼️ Exhibitions | Discover featured and current exhibitions |
+| Right | 🔍 Explore Collection | Explore artworks throughout the gallery |
+| End (center, illuminated) | ✨ Submit Your Artwork | Share your creativity with the gallery |
 
 ## Quick start
 
@@ -16,38 +17,21 @@ An immersive first-person gallery corridor. **Scroll to walk forward** through t
 npx serve .
 ```
 
-Open the URL shown (e.g. `http://localhost:3000`).
+Open **http://localhost:3000** — scroll to walk, click a painting to enter a room.
+
+## Color palette
+
+Ice Blue `#EAF4FF` · Mist Blue `#DCEBFA` · Powder Blue `#C7DDF5` · Soft Sky `#AFCDEB` · Steel Blue `#6F9BC3` · Navy `#27496D`
 
 ## Structure
 
 ```
 gallery/
 ├── index.html
-├── assets/art/          # SVG placeholder artworks
+├── assets/art/     # SVG paintings
 ├── css/
-│   ├── main.css
-│   ├── gallery.css      # Corridor 3D & scroll walk
-│   └── pages.css
-└── js/
-    ├── corridor.js      # Scroll → camera movement
-    └── app.js           # Entrance, routing, pages
+└── js/app.js
 ```
-
-## Color palette
-
-| Name            | Hex       |
-|-----------------|-----------|
-| Warm Ivory      | `#F8F5F0` |
-| Light Beige     | `#E7DDD1` |
-| Sand Brown      | `#D8C6B2` |
-| Soft Olive Green| `#B8C4A8` |
-| Sage Green      | `#A9B59C` |
-| Warm Taupe      | `#B7A293` |
-| Deep Olive Accent | `#6E7B63` |
-
-## Accessibility
-
-- Skip link, keyboard focus on frames, `prefers-reduced-motion` shows a stacked frame list without scroll-walk
 
 ## License
 
